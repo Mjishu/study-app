@@ -29,6 +29,11 @@ body {
     min-height: 100vh;
 }
 
+#app {
+    width: 100vw;
+    height: 100vh;
+}
+
 #timer-parent {
     border: 1px solid var(--light-color);
     border-radius: 10px;
@@ -40,6 +45,7 @@ body {
     justify-content: space-between;
     padding: 2rem 0;
     gap: 0.5rem;
+    z-index: 10;
     background: hsl(var(--black), 0.6);
     position: fixed;
 }
@@ -52,4 +58,12 @@ body {
 #timer {
     font-size: x-large;
     font-weight: 700;
+}
+
+.notes-parent {
+    width: 20rem;
+    height: 15rem;
+    background: hsl(212, 36%, 57%);
+    border-radius: 15px;
+    position: fixed;
 }
