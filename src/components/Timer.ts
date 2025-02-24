@@ -1,3 +1,5 @@
+import { Drag } from '../helper/Drag';
+
 export class Timer {
     startDuration: number;
     isCountdown: boolean;
@@ -8,10 +10,7 @@ export class Timer {
     timerStop: HTMLButtonElement;
     timerStart: HTMLButtonElement;
     timerPause: HTMLButtonElement;
-    newX: number;
-    newY: number;
-    startX: number;
-    startY: number;
+    dragItem: Drag;
 
     constructor(isCountdown: boolean, duration: number) {
         this.startDuration = duration;
@@ -23,13 +22,7 @@ export class Timer {
         this.isCountdown = isCountdown;
         this.duration = duration; // in ms
         this.Itimer = null;
-        this.newX = 0;
-        this.newY = 0;
-        this.startX = 0;
-        this.startY = 0;
-        this.mouseDown = this.mouseDown.bind(this);
-        this.mouseMove = this.mouseMove.bind(this);
-        this.mouseUp = this.mouseUp.bind(this);
+        this.dragItem = new Drag(this.timerParent);
     }
 
     Start() {
@@ -110,29 +103,6 @@ export class Timer {
             this.Pause();
         });
 
-        this.timerParent.addEventListener('mousedown', this.mouseDown);
-    }
-
-    mouseDown(e: MouseEvent) {
-        this.startX = e.clientX;
-        this.startY = e.clientY;
-
-        document.addEventListener('mousemove', this.mouseMove);
-        document.addEventListener('mouseup', this.mouseUp);
-    }
-
-    mouseMove(e: MouseEvent) {
-        this.newX = this.startX - e.clientX;
-        this.newY = this.startY - e.clientY;
-
-        this.startX = e.clientX;
-        this.startY = e.clientY;
-
-        this.timerParent.style.top = this.timerParent.offsetTop - this.newY + 'px';
-        this.timerParent.style.left = this.timerParent.offsetLeft - this.newX + 'px';
-    }
-
-    mouseUp(e: MouseEvent) {
-        document.removeEventListener('mousemove', this.mouseMove);
+        this.dragItem.Start();
     }
 }
