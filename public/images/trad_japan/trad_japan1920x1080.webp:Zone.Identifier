@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/e2a1add1-5a80-4ca2-ac84-fe89a37ac63a/trad_japan.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250224%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20250224T192234Z&X-Amz-Expires=86400&X-Amz-Signature=5a0fe46af0fd2691315499aa88ee86c1cdb90336163d9f3a6cf7dac53c4e0440&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22trad_japan.webp%22&response-content-type=image%2Fwebp&x-id=GetObject

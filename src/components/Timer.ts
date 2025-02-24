@@ -8,6 +8,10 @@ export class Timer {
     timerStop: HTMLButtonElement;
     timerStart: HTMLButtonElement;
     timerPause: HTMLButtonElement;
+    newX: number;
+    newY: number;
+    startX: number;
+    startY: number;
 
     constructor(isCountdown: boolean, duration: number) {
         this.startDuration = duration;
@@ -19,14 +23,21 @@ export class Timer {
         this.isCountdown = isCountdown;
         this.duration = duration; // in ms
         this.Itimer = null;
+        this.newX = 0;
+        this.newY = 0;
+        this.startX = 0;
+        this.startY = 0;
+        this.mouseDown = this.mouseDown.bind(this);
+        this.mouseMove = this.mouseMove.bind(this);
+        this.mouseUp = this.mouseUp.bind(this);
     }
 
     Start() {
         this._formatTime();
         this.Itimer = setInterval(() => {
             if (this.duration <= 0 && this.isCountdown) {
-                alert('TIMER OVER');
                 this.Stop();
+                this.alertSound('/sounds/lofi-alarm.mp3');
                 return;
             }
             this.duration = this.isCountdown ? this.duration - 1 : this.duration + 1;
@@ -72,6 +83,11 @@ export class Timer {
         this.duration = this.startDuration;
     }
 
+    alertSound(src: string) {
+        const sound = new Audio(src);
+        sound.play();
+    }
+
     InputChecker() {
         this.timerStart.addEventListener('click', () => {
             this.timerPause.disabled = false;
@@ -93,5 +109,30 @@ export class Timer {
             this.timerStart.disabled = false;
             this.Pause();
         });
+
+        this.timerParent.addEventListener('mousedown', this.mouseDown);
+    }
+
+    mouseDown(e: MouseEvent) {
+        this.startX = e.clientX;
+        this.startY = e.clientY;
+
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('mouseup', this.mouseUp);
+    }
+
+    mouseMove(e: MouseEvent) {
+        this.newX = this.startX - e.clientX;
+        this.newY = this.startY - e.clientY;
+
+        this.startX = e.clientX;
+        this.startY = e.clientY;
+
+        this.timerParent.style.top = this.timerParent.offsetTop - this.newY + 'px';
+        this.timerParent.style.left = this.timerParent.offsetLeft - this.newX + 'px';
+    }
+
+    mouseUp(e: MouseEvent) {
+        document.removeEventListener('mousemove', this.mouseMove);
     }
 }

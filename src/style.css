@@ -5,7 +5,7 @@
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    --black: 0, 0%, 14%;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -16,6 +16,12 @@
 }
 
 body {
+    background-image: url('/images/trad_japan/trad_japan1920x1080.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+
     margin: 0;
     display: flex;
     place-items: center;
@@ -34,6 +40,8 @@ body {
     justify-content: space-between;
     padding: 2rem 0;
     gap: 0.5rem;
+    background: hsl(var(--black), 0.6);
+    position: fixed;
 }
 
 .button-holders {
