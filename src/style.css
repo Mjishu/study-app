@@ -66,4 +66,57 @@ body {
     background: hsl(212, 36%, 57%);
     border-radius: 15px;
     position: fixed;
+    display: flex;
+    transition: 100ms ease-in-out background;
+}
+
+.notes-parent textarea {
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding: 0.5rem 0.5rem;
+    border: none;
+    outline: none;
+    resize: none;
+    cursor: pointer;
+}
+
+.notes-parent textarea:active {
+    border: none;
+    outline: none;
+}
+
+.notes-options-button {
+    height: 2rem;
+    background: none;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin-right: 0.25rem;
+    margin-top: 0.25rem;
+    transition: 100ms ease-in-out background;
+}
+
+.notes-options-button:hover {
+    background-color: #f5eeee6b;
+}
+
+.color-button {
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.notes-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.color-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
