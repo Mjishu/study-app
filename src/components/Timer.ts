@@ -1,4 +1,5 @@
 import { Drag } from '../helper/Drag';
+import '../styles/timer.css';
 
 export class Timer {
     startDuration: number;
@@ -23,6 +24,7 @@ export class Timer {
         this.duration = duration; // in ms
         this.Itimer = null;
         this.dragItem = new Drag(this.timerParent);
+        this.changeTime = this.changeTime.bind(this);
     }
 
     Start() {
@@ -79,6 +81,51 @@ export class Timer {
     alertSound(src: string) {
         const sound = new Audio(src);
         sound.play();
+    }
+
+    increaseTime() {
+        const div = document.createElement('div');
+        div.className = 'change-time-parent';
+        const minuteButton = document.createElement('button');
+        minuteButton.innerText = '^';
+        const secondButton = document.createElement('button');
+        secondButton.innerText = '^';
+        div.append(minuteButton, secondButton);
+
+        minuteButton.onclick = () => this.changeTime(true, true);
+        secondButton.onclick = () => this.changeTime(false, true);
+        this.timerParent.append(div);
+    }
+
+    decreaseTime() {
+        const div = document.createElement('div');
+        div.className = 'change-time-parent';
+        const minuteButton = document.createElement('button');
+        minuteButton.innerText = '^';
+        const secondButton = document.createElement('button');
+        secondButton.innerText = '^';
+        div.append(minuteButton, secondButton);
+
+        minuteButton.onclick = () => this.changeTime(true, false);
+        secondButton.onclick = () => this.changeTime(false, false);
+        this.timerParent.append(div);
+    }
+
+    changeTime(isMinute: boolean, isIncrease: boolean) {
+        if (isMinute) {
+            if (isIncrease) {
+                this.duration += 60;
+            } else if (!isIncrease && this.duration > 0) {
+                this.duration -= 60;
+            }
+        } else {
+            if (isIncrease) {
+                this.duration += 1;
+            } else if (!isIncrease && this.duration > 0) {
+                this.duration -= 1;
+            }
+        }
+        this.formatTime();
     }
 
     InputChecker() {
