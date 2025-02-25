@@ -42,12 +42,12 @@ export class Display {
 
     showBackgrounds() {
         if (this.backgroundsShown) {
-            this.backgroundsParent.hidden = true;
+            this.backgroundsParent.style.display = 'none';
             this.backgroundsShown = false;
             return;
         }
         this.backgroundsParent.innerHTML = '';
-        this.backgroundsParent.hidden = false;
+        this.backgroundsParent.style.display = 'flex';
         for (const image of this.imageOptions) {
             const button = document.createElement('button');
             const imageUrl = `/images/${image}/${image}1920x1080.webp`;
@@ -63,6 +63,7 @@ export class Display {
     changeBackground(imageTitle: string) {
         console.log('im chosen!');
         document.body.style.backgroundImage = `url(${imageTitle})`;
+        this.backgroundsParent.style.display = 'none';
     }
 
     createNote(app: HTMLElement) {
