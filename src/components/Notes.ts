@@ -16,7 +16,7 @@ export class Notes {
         this.colorHolder = document.createElement('div');
         this.displayOptions = document.createElement('button');
         this.Drag = new Drag(this.parent);
-        this.colorOptions = [' #e2b5d0 ', '#b2e6bd', '#eec882', '#8db6f6']; //pink, green, orange,
+        this.colorOptions = [' #e2b5d0df', '#b2e6bddf', '#eec882df', '#8db6f6df']; //pink, green,|orange(eec882), blue
         this.optionsVisible = false;
         app.appendChild(this.parent);
         this.toggleOptions = this.toggleOptions.bind(this);
@@ -28,7 +28,6 @@ export class Notes {
         this.optionsHolder.append(this.displayOptions, this.colorHolder);
         this.parent.append(this.text, this.optionsHolder);
 
-        console.log('creating note');
         this.displayOptions.innerText = 'options';
         this.displayOptions.className = 'notes-options-button';
         this.optionsHolder.className = 'notes-options';

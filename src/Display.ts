@@ -10,7 +10,7 @@ export class Display {
 
     constructor() {
         this.app = document.querySelector('#app') as HTMLElement;
-        this.Timer = new Timer(true, 120);
+        this.Timer = new Timer(true, 1500);
         this.newNote = document.querySelector('#new-note-button') as HTMLButtonElement;
         this.audioLofi = new AudioBar('/sounds/lofi-alarm.mp3');
     }
