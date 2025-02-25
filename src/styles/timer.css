@@ -1,4 +1,7 @@
 .change-time-parent {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    position: relative;
+    top: -8.5rem;
+    margin: 1rem 0;
 }

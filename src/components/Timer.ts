@@ -43,7 +43,7 @@ export class Timer {
     formatTime() {
         const minute = Math.floor(this.duration / 60);
         const seconds = this.duration - minute * 60;
-        if (this.duration > 6000) {
+        if (this.duration > 60) {
             this.timer.innerText = `${minute}:${this.duration - minute * 60}`; // minute * 60 - this.duration?
             if (seconds < 10) {
                 this.timer.innerText = `${minute}:0${this.duration - minute * 60}`;
@@ -101,9 +101,9 @@ export class Timer {
         const div = document.createElement('div');
         div.className = 'change-time-parent';
         const minuteButton = document.createElement('button');
-        minuteButton.innerText = '^';
+        minuteButton.innerText = '⌄';
         const secondButton = document.createElement('button');
-        secondButton.innerText = '^';
+        secondButton.innerText = '⌄';
         div.append(minuteButton, secondButton);
 
         minuteButton.onclick = () => this.changeTime(true, false);
