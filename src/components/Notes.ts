@@ -10,7 +10,6 @@ export class Notes {
     colorOptions: string[];
     optionsVisible: boolean;
     constructor(app: HTMLElement) {
-        console.log(app);
         this.parent = document.createElement('div');
         this.text = document.createElement('textarea');
         this.optionsHolder = document.createElement('div');
@@ -22,6 +21,7 @@ export class Notes {
         app.appendChild(this.parent);
         this.toggleOptions = this.toggleOptions.bind(this);
         this.updateColor = this.updateColor.bind(this);
+        this.Delete = this.Delete.bind(this);
     }
 
     Initialize() {
@@ -36,6 +36,7 @@ export class Notes {
         this.parent.className = 'notes-parent';
         this.Drag.Start();
         this.events();
+        this._deleteButton();
     }
 
     events() {
@@ -58,8 +59,23 @@ export class Notes {
         }
     }
 
+    _deleteButton() {
+        const btn = document.createElement('button');
+        btn.innerText = 'X';
+        btn.className = 'delete-note-button';
+        this.parent.appendChild(btn);
+        btn.addEventListener('click', this.Delete);
+    }
+
     updateColor(color: string) {
         this.parent.style.background = color;
+    }
+
+    Delete() {
+        if (this.parent) {
+            this.parent.remove();
+            this.parent = null as unknown as HTMLDivElement;
+        }
     }
 }
 
