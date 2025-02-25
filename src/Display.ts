@@ -16,6 +16,8 @@ export class Display {
     }
 
     Start() {
+        this.Timer.increaseTime();
+        this.Timer.decreaseTime();
         this.Timer.InputChecker();
         this.Timer.formatTime();
         this.listeners();
