@@ -1,0 +1,25 @@
+.audio-parent {
+    background: #1515157b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.audio-parent * {
+    margin: 0.5rem;
+}
+
+.audio-buttons-parent {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+}
+
+.audio-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: lightcoral;
+    border-radius: 10px;
+}

@@ -10,15 +10,17 @@ export class Display {
 
     constructor() {
         this.app = document.querySelector('#app') as HTMLElement;
-        this.Timer = new Timer(true, 5);
+        this.Timer = new Timer(true, 120);
         this.newNote = document.querySelector('#new-note-button') as HTMLButtonElement;
         this.audioLofi = new AudioBar('/sounds/lofi-alarm.mp3');
     }
 
     Start() {
         this.Timer.InputChecker();
+        this.Timer.formatTime();
         this.listeners();
         this.audioLofi.DomSetup();
+        this.audioLofi.ChangeVolume(0.2);
     }
 
     listeners() {

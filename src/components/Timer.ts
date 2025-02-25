@@ -26,7 +26,7 @@ export class Timer {
     }
 
     Start() {
-        this._formatTime();
+        this.formatTime();
         this.Itimer = setInterval(() => {
             if (this.duration <= 0 && this.isCountdown) {
                 this.Stop();
@@ -34,11 +34,11 @@ export class Timer {
                 return;
             }
             this.duration = this.isCountdown ? this.duration - 1 : this.duration + 1;
-            this._formatTime();
+            this.formatTime();
         }, 1000);
     }
 
-    _formatTime() {
+    formatTime() {
         const minute = Math.floor(this.duration / 60);
         const seconds = this.duration - minute * 60;
         if (this.duration > 6000) {

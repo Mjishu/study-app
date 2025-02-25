@@ -1,3 +1,5 @@
+import '../styles/audio.css';
+
 export class AudioBar {
     music: HTMLAudioElement;
     parent: HTMLDivElement;
@@ -46,10 +48,12 @@ export class AudioBar {
     ToggleAudioInfo() {
         if (this.audioShown) {
             this.parent.innerHTML = '';
+            this.audioShown = false;
             return;
         }
         const icon = document.createElement('div');
         const songInfo = document.createElement('div');
+        const buttonHolder = document.createElement('div');
         const title = document.createElement('h5');
         const playButton = document.createElement('button');
         playButton.addEventListener('click', this.PlaySong);
@@ -60,7 +64,10 @@ export class AudioBar {
         pauseButton.innerText = 'Pause';
         title.innerText = 'placeholder';
         icon.className = 'audio-icon';
-        songInfo.append(title, pauseButton, playButton);
+        buttonHolder.className = 'audio-buttons-parent';
+        buttonHolder.append(pauseButton, playButton);
+        songInfo.append(title, buttonHolder);
         this.parent.append(icon, songInfo);
+        this.audioShown = true;
     }
 }
