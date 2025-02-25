@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://cloudconvert.com/
+HostUrl=https://us-east.storage.cloudconvert.com/tasks/7eae8e98-c769-4f30-938c-23c8d3571041/cyberscape.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20250225%2Fva%2Fs3%2Faws4_request&X-Amz-Date=20250225T183152Z&X-Amz-Expires=86400&X-Amz-Signature=7ffb0d77e0f8c355fdc08aa75a9e37db0229391004503d2283962d6c361412c9&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22cyberscape.webp%22&response-content-type=image%2Fwebp&x-id=GetObject
