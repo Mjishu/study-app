@@ -83,6 +83,8 @@ export class Display {
         this.backgroundsParent.style.display = 'none';
         this.backgroundsShown = false;
         this.local.putItem('background', title);
+        this.currentBackground = title;
+        this._displayAudio();
     }
 
     getStoredNotes() {
@@ -100,20 +102,18 @@ export class Display {
 
     _formatImageUrl(title: string, aspectRatio: string): string {
         const document = `/images/${title}/${title}${aspectRatio}.webp`;
-        console.log(document);
         return document;
     }
 
     _displayAudio() {
+        this._removeAudioElements();
         for (const item of audioData[this.currentBackground] as AudioLocations[]) {
             const ratio = this.settings.getAspect();
             const supportsAspect = this._itemSupportsAspect(item, ratio);
             if (supportsAspect.exists) {
-                // create audio element here
                 const audio = new AudioBar(item, supportsAspect.positions);
                 audio.ChangeVolume(0.3);
                 audio.DomSetup();
-                console.log(item);
             } else {
                 console.error('could not find this aspect ratio defaulting to 1920x1080');
             }
@@ -128,5 +128,13 @@ export class Display {
             }
         }
         return { exists: false, positions: { x: 0, y: 0 } };
+    }
+
+    _removeAudioElements() {
+        const audioElements = document.querySelectorAll('.audio-grandparent');
+        console.log(audioElements);
+        for (const element of audioElements) {
+            element.remove();
+        }
     }
 }
