@@ -38,6 +38,7 @@ export class Display {
         this.listeners();
         this.audioLofi.DomSetup();
         this.audioLofi.ChangeVolume(0.2);
+        this.getStoredNotes();
     }
 
     listeners() {
@@ -72,6 +73,13 @@ export class Display {
         document.body.style.backgroundImage = `url(${imageTitle})`;
         this.backgroundsParent.style.display = 'none';
         this.backgroundsShown = false;
+    }
+
+    getStoredNotes() {
+        for (const note of JSON.parse(this.local.getItem('notes'))) {
+            const item = new Notes(this.app, this.numberOfCards, note);
+            item.Initialize();
+        }
     }
 
     createNote(app: HTMLElement) {

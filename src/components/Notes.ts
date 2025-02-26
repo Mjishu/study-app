@@ -14,7 +14,7 @@ export class Notes {
     optionsVisible: boolean;
     noteContent: NotesContent;
 
-    constructor(app: HTMLElement, numberOfCards: number) {
+    constructor(app: HTMLElement, numberOfCards: number, existingInfo?: NotesContent) {
         this.local = Local.getInstance();
         this.numberOfCards = numberOfCards;
         this.parent = document.createElement('div');
@@ -30,7 +30,7 @@ export class Notes {
         this.updateColor = this.updateColor.bind(this);
         this.Delete = this.Delete.bind(this);
 
-        this.noteContent = { id: numberOfCards, content: '', color: this.colorOptions[0], x: 0, y: 0 };
+        this.noteContent = existingInfo ? existingInfo : { id: numberOfCards, content: '', color: this.colorOptions[0], x: 0, y: 0 };
     }
 
     Initialize() {
@@ -47,6 +47,9 @@ export class Notes {
         this.events();
         this._deleteButton();
         this._saveButton();
+
+        this.text.innerText = this.noteContent.content;
+        this.parent.style.background = this.noteContent.color;
     }
 
     events() {
