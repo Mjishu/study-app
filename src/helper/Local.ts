@@ -11,6 +11,7 @@ export class Local {
     }
 
     public updateNotes(newNote: NotesContent) {
+        console.log(newNote);
         const item = this.getItem('notes');
         const parsedItem = item ? JSON.parse(item) : [];
         const filteredItem = parsedItem.filter((pItem: NotesContent) => pItem.id !== newNote.id);

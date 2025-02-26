@@ -4,10 +4,12 @@ export class Drag {
     startY: number;
     newX: number;
     newY: number;
-    constructor(element: HTMLElement) {
+    position?: NotesContent;
+    constructor(element: HTMLElement, position?: NotesContent) {
         this.element = element;
-        this.startX = 0;
-        this.startY = 0;
+        this.position = position;
+        this.startX = position?.x ? position.x : 0;
+        this.startY = position?.y ? position.y : 0;
         this.newX = 0;
         this.newY = 0;
         this.mouseDown = this.mouseDown.bind(this);
@@ -36,6 +38,12 @@ export class Drag {
 
         this.element.style.top = this.element.offsetTop - this.newY + 'px';
         this.element.style.left = this.element.offsetLeft - this.newX + 'px';
+
+        if (this.position) {
+            this.position.x = this.element.offsetLeft - this.newY;
+            this.position.y = this.element.offsetTop - this.newX;
+        }
+        // console.log(this.localX, this.localY);
     }
 
     mouseUp(e: MouseEvent) {

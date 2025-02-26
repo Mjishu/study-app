@@ -22,7 +22,6 @@ export class Notes {
         this.optionsHolder = document.createElement('div');
         this.colorHolder = document.createElement('div');
         this.displayOptions = document.createElement('button');
-        this.Drag = new Drag(this.parent);
         this.colorOptions = ['#8db6f6df', ' #e2b5d0df', '#b2e6bddf', '#eec882df']; //pink, green,orange(eec882), blue
         this.optionsVisible = false;
         app.appendChild(this.parent);
@@ -31,6 +30,7 @@ export class Notes {
         this.Delete = this.Delete.bind(this);
 
         this.noteContent = existingInfo ? existingInfo : { id: numberOfCards, content: '', color: this.colorOptions[0], x: 0, y: 0 };
+        this.Drag = new Drag(this.parent, this.noteContent);
     }
 
     Initialize() {
@@ -50,6 +50,8 @@ export class Notes {
 
         this.text.innerText = this.noteContent.content;
         this.parent.style.background = this.noteContent.color;
+        this.parent.style.left = this.noteContent.x + 'px';
+        this.parent.style.top = this.noteContent.y + 'px';
     }
 
     events() {
