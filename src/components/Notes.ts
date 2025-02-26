@@ -1,8 +1,10 @@
 import { Drag } from '../helper/Drag';
 import { Local } from '../helper/Local';
+import { WindowResizeHandler } from '../helper/window/WindowResize';
 
 export class Notes {
     local: Local;
+    WindowResizeHandler: WindowResizeHandler;
     numberOfCards: number;
     parent: HTMLDivElement;
     text: HTMLTextAreaElement;
@@ -16,6 +18,7 @@ export class Notes {
 
     constructor(app: HTMLElement, numberOfCards: number, existingInfo?: NotesContent) {
         this.local = Local.getInstance();
+        this.WindowResizeHandler = WindowResizeHandler.getInstance();
         this.numberOfCards = numberOfCards;
         this.parent = document.createElement('div');
         this.text = document.createElement('textarea');

@@ -2,10 +2,13 @@ import { Timer } from './components/Timer';
 import { Notes } from './components/Notes';
 import { Local } from './helper/Local';
 import { AudioBar } from './components/AudioBar';
+import audioData from './data/audio_locations.json';
+import { Settings } from './helper/Settings';
 
 export class Display {
-    app: HTMLElement;
     local: Local;
+    settings: Settings;
+    app: HTMLElement;
     Timer: Timer;
     newNote: HTMLButtonElement;
     audioLofi: AudioBar;
@@ -17,14 +20,14 @@ export class Display {
     numberOfCards: number;
 
     constructor() {
-        this.app = document.querySelector('#app') as HTMLElement;
         this.local = Local.getInstance();
+        this.settings = Settings.getInstance();
         this.Timer = new Timer(true, 1500);
+        this.app = document.querySelector('#app') as HTMLElement;
         this.newNote = document.querySelector('#new-note-button') as HTMLButtonElement;
-        this.audioLofi = new AudioBar('/sounds/lofi-alarm.mp3');
-        this.imageOptions = ['trad_japan', 'cyberscape'];
         this.changeBackgroundButton = document.querySelector('#show-background') as HTMLButtonElement;
         this.backgroundsParent = document.querySelector('#background-select-parent') as HTMLDivElement;
+        this.imageOptions = ['trad_japan', 'cyberscape'];
         this.currentBackground = this.local.getItem('background') ? this.local.getItem('background') : this.imageOptions[0];
         this.backgroundsShown = false;
         const notes = this.local.getItem('notes');
@@ -32,16 +35,19 @@ export class Display {
     }
 
     Start() {
-        // load all notes here
+        // display setup
         document.body.style.backgroundImage = `url(${this._formatImageUrl(this.currentBackground, '1920x1080')}`;
+        this.listeners();
+        this.getStoredNotes();
+
+        // Timer creation
         this.Timer.increaseTime();
         this.Timer.decreaseTime();
         this.Timer.InputChecker();
         this.Timer.formatTime();
-        this.listeners();
-        this.audioLofi.DomSetup();
-        this.audioLofi.ChangeVolume(0.2);
-        this.getStoredNotes();
+
+        // music setup
+        this._displayAudio();
     }
 
     listeners() {
@@ -77,6 +83,8 @@ export class Display {
         this.backgroundsParent.style.display = 'none';
         this.backgroundsShown = false;
         this.local.putItem('background', title);
+        this.currentBackground = title;
+        this._displayAudio();
     }
 
     getStoredNotes() {
@@ -94,7 +102,39 @@ export class Display {
 
     _formatImageUrl(title: string, aspectRatio: string): string {
         const document = `/images/${title}/${title}${aspectRatio}.webp`;
-        console.log(document);
         return document;
+    }
+
+    _displayAudio() {
+        this._removeAudioElements();
+        for (const item of audioData[this.currentBackground] as AudioLocations[]) {
+            const ratio = this.settings.getAspect();
+            const supportsAspect = this._itemSupportsAspect(item, ratio);
+            if (supportsAspect.exists) {
+                const audio = new AudioBar(item, supportsAspect.positions);
+                audio.ChangeVolume(0.3);
+                audio.DomSetup();
+            } else {
+                console.error('could not find this aspect ratio defaulting to 1920x1080');
+            }
+        }
+    }
+
+    _itemSupportsAspect(item: AudioLocations, ratio: string): { exists: boolean; positions: Coords } {
+        for (const aspect of item.position) {
+            const aspectRatio = Object.keys(aspect)[0];
+            if (aspectRatio === ratio) {
+                return { exists: true, positions: { x: aspect[aspectRatio].x, y: aspect[aspectRatio].y } };
+            }
+        }
+        return { exists: false, positions: { x: 0, y: 0 } };
+    }
+
+    _removeAudioElements() {
+        const audioElements = document.querySelectorAll('.audio-grandparent');
+        console.log(audioElements);
+        for (const element of audioElements) {
+            element.remove();
+        }
     }
 }
