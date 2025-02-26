@@ -2,12 +2,17 @@ import '../styles/audio.css';
 
 export class AudioBar {
     music: HTMLAudioElement;
+    title: string;
+    grandParent: HTMLDivElement;
     parent: HTMLDivElement;
+    position: Coords;
     audioShown: boolean;
 
-    constructor(songSrc: string) {
-        console.log(songSrc);
-        this.music = new Audio(songSrc);
+    constructor(audioItem: AudioLocations, position: Coords) {
+        this.position = position;
+        this.title = audioItem.title;
+        this.music = new Audio(audioItem.audio_src);
+        this.grandParent = document.createElement('div');
         this.parent = document.createElement('div');
         this.parent.className = 'audio-parent';
         this.audioShown = false;
@@ -15,10 +20,14 @@ export class AudioBar {
         this.ToggleAudioInfo = this.ToggleAudioInfo.bind(this);
         this.PlaySong = this.PlaySong.bind(this);
         this.PauseSong = this.PauseSong.bind(this);
+
+        this.grandParent.className = 'audio-grandparent';
+        this.grandParent.style.left = this.position.x + 'px';
+        this.grandParent.style.top = this.position.y + 'px';
     }
 
     PlaySong() {
-        console.log(this.music);
+        this.music.loop = true;
         if (!this.music) {
             console.error('expected to have music');
             return;
@@ -40,7 +49,8 @@ export class AudioBar {
         const audioButton = document.createElement('button');
         audioButton.className = 'audio-button';
         audioButton.innerText = 'Audio';
-        document.body.append(audioButton, this.parent);
+        this.grandParent.append(audioButton, this.parent);
+        document.body.append(this.grandParent);
 
         audioButton.addEventListener('click', this.ToggleAudioInfo);
     }
@@ -62,7 +72,10 @@ export class AudioBar {
 
         playButton.innerText = 'Play';
         pauseButton.innerText = 'Pause';
-        title.innerText = 'placeholder';
+        title.innerText = this.title
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
         icon.className = 'audio-icon';
         buttonHolder.className = 'audio-buttons-parent';
         buttonHolder.append(pauseButton, playButton);

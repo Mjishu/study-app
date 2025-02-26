@@ -163,3 +163,7 @@ body {
     height: auto;
     border-radius: 10px;
 }
+
+.audio-grandparent {
+    position: fixed;
+}
