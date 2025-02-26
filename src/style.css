@@ -70,7 +70,7 @@ body {
     transition: 100ms ease-in-out background;
 }
 
-.notes-parent textarea {
+.notes-text {
     white-space: pre-wrap;
     width: 100%;
     height: 100%;
@@ -83,7 +83,7 @@ body {
     font-size: 20px;
 }
 
-.notes-parent textarea:active {
+.notes-text:active {
     border: none;
     outline: none;
 }

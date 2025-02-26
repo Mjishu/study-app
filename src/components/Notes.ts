@@ -34,6 +34,7 @@ export class Notes {
     }
 
     Initialize() {
+        this.text.className = 'notes-text';
         this.text.maxLength = 175;
         this.optionsHolder.append(this.displayOptions, this.colorHolder);
         this.parent.append(this.text, this.optionsHolder);

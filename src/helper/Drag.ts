@@ -27,6 +27,10 @@ export class Drag {
 
         document.addEventListener('mousemove', this.mouseMove);
         document.addEventListener('mouseup', this.mouseUp);
+
+        // for each element with the
+        this._stripZIndex();
+        this.element.style.zIndex = '5';
     }
 
     mouseMove(e: MouseEvent) {
@@ -48,5 +52,13 @@ export class Drag {
 
     mouseUp(e: MouseEvent) {
         document.removeEventListener('mousemove', this.mouseMove);
+    }
+
+    _stripZIndex() {
+        const items = document.querySelectorAll('.notes-parent') as NodeListOf<HTMLDivElement>;
+        console.log(items);
+        items.forEach((node) => {
+            node.style.zIndex = '1';
+        });
     }
 }
