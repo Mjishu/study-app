@@ -1,9 +1,11 @@
 import { Timer } from './components/Timer';
 import { Notes } from './components/Notes';
+import { Local } from './helper/Local';
 import { AudioBar } from './components/AudioBar';
 
 export class Display {
     app: HTMLElement;
+    local: Local;
     Timer: Timer;
     newNote: HTMLButtonElement;
     audioLofi: AudioBar;
@@ -11,9 +13,11 @@ export class Display {
     changeBackgroundButton: HTMLButtonElement;
     backgroundsParent: HTMLDivElement;
     backgroundsShown: boolean;
+    numberOfCards: number;
 
     constructor() {
         this.app = document.querySelector('#app') as HTMLElement;
+        this.local = Local.getInstance();
         this.Timer = new Timer(true, 1500);
         this.newNote = document.querySelector('#new-note-button') as HTMLButtonElement;
         this.audioLofi = new AudioBar('/sounds/lofi-alarm.mp3');
@@ -21,9 +25,12 @@ export class Display {
         this.changeBackgroundButton = document.querySelector('#show-background') as HTMLButtonElement;
         this.backgroundsParent = document.querySelector('#background-select-parent') as HTMLDivElement;
         this.backgroundsShown = false;
+        const notes = this.local.getItem('notes');
+        this.numberOfCards = notes ? JSON.parse(notes).length : 0;
     }
 
     Start() {
+        // load all notes here
         this.Timer.increaseTime();
         this.Timer.decreaseTime();
         this.Timer.InputChecker();
@@ -64,10 +71,12 @@ export class Display {
         console.log('im chosen!');
         document.body.style.backgroundImage = `url(${imageTitle})`;
         this.backgroundsParent.style.display = 'none';
+        this.backgroundsShown = false;
     }
 
     createNote(app: HTMLElement) {
-        const note = new Notes(app);
+        const note = new Notes(app, this.numberOfCards);
         note.Initialize();
+        this.numberOfCards += 1;
     }
 }

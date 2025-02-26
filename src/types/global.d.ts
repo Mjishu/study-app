@@ -1,5 +1,6 @@
 global {
-    interface Notes {
+    interface NotesContent {
+        id: number;
         content: string;
         color: string;
         x: number;

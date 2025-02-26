@@ -88,19 +88,26 @@ body {
     outline: none;
 }
 
-.delete-note-button {
+.note-button {
     position: absolute;
     bottom: 5px;
-    right: 5px;
     height: 2rem;
-    width: 2rem;
+    width: fit-content;
     background: none;
     border: none;
     transition: 150ms ease-in border;
 }
-.delete-note-button:hover {
+.note-button:hover {
     border: 1px solid white;
     border-radius: 10px;
+}
+
+.delete-note-button {
+    right: 5px;
+}
+
+.save-note-button {
+    left: 5px;
 }
 
 .notes-options-button {

@@ -1,6 +1,9 @@
 import { Drag } from '../helper/Drag';
+import { Local } from '../helper/Local';
 
 export class Notes {
+    local: Local;
+    numberOfCards: number;
     parent: HTMLDivElement;
     text: HTMLTextAreaElement;
     displayOptions: HTMLButtonElement;
@@ -9,22 +12,29 @@ export class Notes {
     Drag: Drag;
     colorOptions: string[];
     optionsVisible: boolean;
-    constructor(app: HTMLElement) {
+    noteContent: NotesContent;
+
+    constructor(app: HTMLElement, numberOfCards: number) {
+        this.local = Local.getInstance();
+        this.numberOfCards = numberOfCards;
         this.parent = document.createElement('div');
         this.text = document.createElement('textarea');
         this.optionsHolder = document.createElement('div');
         this.colorHolder = document.createElement('div');
         this.displayOptions = document.createElement('button');
         this.Drag = new Drag(this.parent);
-        this.colorOptions = [' #e2b5d0df', '#b2e6bddf', '#eec882df', '#8db6f6df']; //pink, green,|orange(eec882), blue
+        this.colorOptions = ['#8db6f6df', ' #e2b5d0df', '#b2e6bddf', '#eec882df']; //pink, green,orange(eec882), blue
         this.optionsVisible = false;
         app.appendChild(this.parent);
         this.toggleOptions = this.toggleOptions.bind(this);
         this.updateColor = this.updateColor.bind(this);
         this.Delete = this.Delete.bind(this);
+
+        this.noteContent = { id: numberOfCards, content: '', color: this.colorOptions[0], x: 0, y: 0 };
     }
 
     Initialize() {
+        this.text.maxLength = 175;
         this.optionsHolder.append(this.displayOptions, this.colorHolder);
         this.parent.append(this.text, this.optionsHolder);
 
@@ -36,10 +46,14 @@ export class Notes {
         this.Drag.Start();
         this.events();
         this._deleteButton();
+        this._saveButton();
     }
 
     events() {
         this.displayOptions.addEventListener('click', this.toggleOptions);
+        this.text.addEventListener('change', (e) => {
+            this.noteContent.content = (e.target as HTMLTextAreaElement).value;
+        });
     }
 
     toggleOptions() {
@@ -61,16 +75,26 @@ export class Notes {
     _deleteButton() {
         const btn = document.createElement('button');
         btn.innerText = 'X';
-        btn.className = 'delete-note-button';
+        btn.className = 'delete-note-button note-button';
         this.parent.appendChild(btn);
         btn.addEventListener('click', this.Delete);
     }
 
+    _saveButton() {
+        const btn = document.createElement('button');
+        btn.innerText = 'Save';
+        btn.className = 'note-button save-note-button';
+        this.parent.appendChild(btn);
+        btn.addEventListener('click', () => this.local.updateNotes(this.noteContent));
+    }
+
     updateColor(color: string) {
         this.parent.style.background = color;
+        this.noteContent.color = color;
     }
 
     Delete() {
+        this.local.deleteNote(this.noteContent);
         if (this.parent) {
             this.parent.remove();
             this.parent = null as unknown as HTMLDivElement;
