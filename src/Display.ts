@@ -4,17 +4,19 @@ import { Local } from './helper/Local';
 import { AudioBar } from './components/AudioBar';
 import audioData from './data/audio_locations.json';
 import { Settings } from './helper/Settings';
+import { AudioPopup } from './components/audio_popup';
 
 export class Display {
     local: Local;
     settings: Settings;
+    audioPopup: AudioPopup;
     app: HTMLElement;
     Timer: Timer;
     newNote: HTMLButtonElement;
-    audioLofi: AudioBar;
     imageOptions: string[];
     changeBackgroundButton: HTMLButtonElement;
     backgroundsParent: HTMLDivElement;
+    showAudio: HTMLButtonElement;
     currentBackground: string;
     backgroundsShown: boolean;
     numberOfCards: number;
@@ -22,11 +24,13 @@ export class Display {
     constructor() {
         this.local = Local.getInstance();
         this.settings = Settings.getInstance();
+        this.audioPopup = new AudioPopup();
         this.Timer = new Timer(true, 1500);
         this.app = document.querySelector('#app') as HTMLElement;
         this.newNote = document.querySelector('#new-note-button') as HTMLButtonElement;
         this.changeBackgroundButton = document.querySelector('#show-background') as HTMLButtonElement;
         this.backgroundsParent = document.querySelector('#background-select-parent') as HTMLDivElement;
+        this.showAudio = document.querySelector('#show-audio') as HTMLButtonElement;
         this.imageOptions = ['trad_japan', 'cyberscape'];
         this.currentBackground = this.local.getItem('background') ? this.local.getItem('background') : this.imageOptions[0];
         this.backgroundsShown = false;
@@ -51,10 +55,11 @@ export class Display {
     }
 
     listeners() {
-        this.newNote.addEventListener('click', () => this.createNote(this.app));
+        this.newNote.onclick = () => this.createNote(this.app);
         this.changeBackgroundButton.onclick = () => {
             this.showBackgrounds();
         };
+        this.showAudio.onclick = () => this.audioPopup.start();
     }
 
     showBackgrounds() {

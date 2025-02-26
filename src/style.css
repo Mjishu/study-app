@@ -167,3 +167,19 @@ body {
 .audio-grandparent {
     position: fixed;
 }
+
+.audio-popup-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #4894bd52;
+    /* grid-template-rows: repeat(); */
+    gap: 1rem;
+    position: fixed;
+    left: 40%;
+    top: 10%;
+    padding: 1rem;
+}
+
+.audio-popup-parent[hidden] {
+    display: none;
+}

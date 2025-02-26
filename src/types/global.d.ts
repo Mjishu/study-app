@@ -7,6 +7,11 @@ global {
         y: number;
     }
 
+    interface Audio {
+        audio_src: string;
+        icon: string;
+    }
+
     interface AudioLocations {
         title: string;
         position: PositionEntry[];

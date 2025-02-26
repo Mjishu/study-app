@@ -1,0 +1,27 @@
+{
+    "fireplace": {
+        "audio_src": "",
+        "icon": ""
+    },
+    "wind": {
+        "audio_src": "",
+        "icon": ""
+    },
+    "rain": {
+        "audio_src": "",
+        "icon": ""
+    },
+    "talking": {
+        "audio_src": "",
+        "icon": ""
+    },
+    "waterfall": {
+        "audio_src": "",
+        "icon": ""
+    },
+
+    "summer": {
+        "audio_src": "",
+        "icon": ""
+    }
+}
