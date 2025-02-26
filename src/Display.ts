@@ -12,6 +12,7 @@ export class Display {
     imageOptions: string[];
     changeBackgroundButton: HTMLButtonElement;
     backgroundsParent: HTMLDivElement;
+    currentBackground: string;
     backgroundsShown: boolean;
     numberOfCards: number;
 
@@ -24,6 +25,7 @@ export class Display {
         this.imageOptions = ['trad_japan', 'cyberscape'];
         this.changeBackgroundButton = document.querySelector('#show-background') as HTMLButtonElement;
         this.backgroundsParent = document.querySelector('#background-select-parent') as HTMLDivElement;
+        this.currentBackground = this.local.getItem('background') ? this.local.getItem('background') : this.imageOptions[0];
         this.backgroundsShown = false;
         const notes = this.local.getItem('notes');
         this.numberOfCards = notes ? JSON.parse(notes).length : 0;
@@ -31,6 +33,7 @@ export class Display {
 
     Start() {
         // load all notes here
+        document.body.style.backgroundImage = `url(${this._formatImageUrl(this.currentBackground, '1920x1080')}`;
         this.Timer.increaseTime();
         this.Timer.decreaseTime();
         this.Timer.InputChecker();
@@ -58,21 +61,22 @@ export class Display {
         this.backgroundsParent.style.display = 'flex';
         for (const image of this.imageOptions) {
             const button = document.createElement('button');
-            const imageUrl = `/images/${image}/${image}1920x1080.webp`;
+            const imageUrl = this._formatImageUrl(image, '1920x1080');
             button.innerHTML = `
                 <img src='${imageUrl}' alt='${image}'/>
             `;
             this.backgroundsParent.appendChild(button);
-            button.onclick = () => this.changeBackground(imageUrl);
+            button.onclick = () => this.changeBackground(imageUrl, image);
         }
         this.backgroundsShown = true;
     }
 
-    changeBackground(imageTitle: string) {
+    changeBackground(url: string, title: string) {
         console.log('im chosen!');
-        document.body.style.backgroundImage = `url(${imageTitle})`;
+        document.body.style.backgroundImage = `url(${url})`;
         this.backgroundsParent.style.display = 'none';
         this.backgroundsShown = false;
+        this.local.putItem('background', title);
     }
 
     getStoredNotes() {
@@ -86,5 +90,11 @@ export class Display {
         const note = new Notes(app, this.numberOfCards);
         note.Initialize();
         this.numberOfCards += 1;
+    }
+
+    _formatImageUrl(title: string, aspectRatio: string): string {
+        const document = `/images/${title}/${title}${aspectRatio}.webp`;
+        console.log(document);
+        return document;
     }
 }
