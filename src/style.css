@@ -167,11 +167,17 @@ body {
 .audio-grandparent {
     position: fixed;
 }
+.audio-button {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+}
 
 .audio-popup-parent {
+    z-index: 7;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #4894bd52;
+    background: #4894bd94;
     /* grid-template-rows: repeat(); */
     gap: 1rem;
     position: fixed;
