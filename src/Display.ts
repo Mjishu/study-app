@@ -89,7 +89,7 @@ export class Display {
         this.backgroundsShown = false;
         this.local.putItem('background', title);
         this.currentBackground = title;
-        this._displayAudio();
+        // this._displayAudio();
     }
 
     getStoredNotes() {
@@ -110,20 +110,21 @@ export class Display {
         return document;
     }
 
-    _displayAudio() {
-        this._removeAudioElements();
-        for (const item of audioData[this.currentBackground] as AudioLocations[]) {
-            const ratio = this.settings.getAspect();
-            const supportsAspect = this._itemSupportsAspect(item, ratio);
-            if (supportsAspect.exists) {
-                const audio = new AudioBar(item, supportsAspect.positions);
-                audio.ChangeVolume(0.3);
-                audio.DomSetup();
-            } else {
-                console.error('could not find this aspect ratio defaulting to 1920x1080');
-            }
-        }
-    }
+    // _displayAudio() {
+    //     this._removeAudioElements();
+    //     for (const item of audioData[this.currentBackground] as AudioLocations[]) {
+    //         const ratio = this.settings.getAspect();
+    //         const supportsAspect = this._itemSupportsAspect(item, ratio);
+    //         if (supportsAspect.exists) {
+    //             const audio = new AudioBar(item, supportsAspect.positions);
+    //             console.log(supportsAspect.positions);
+    //             audio.ChangeVolume(0.3);
+    //             audio.DomSetup();
+    //         } else {
+    //             console.error('could not find this aspect ratio defaulting to 1920x1080');
+    //         }
+    //     }
+    // }
 
     _itemSupportsAspect(item: AudioLocations, ratio: string): { exists: boolean; positions: Coords } {
         for (const aspect of item.position) {

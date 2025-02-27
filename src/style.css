@@ -192,3 +192,32 @@ body {
     border-radius: 10px;
     background-color: rgb(238, 238, 238);
 }
+
+/* Adjust for smaller laptops & tablets */
+@media (max-width: 1366px) {
+    body {
+        background-size: cover;
+    }
+}
+
+/* Ensure background adapts well on tablets */
+@media (max-width: 1024px) {
+    body {
+        background-size: contain; /* Prevent cropping */
+    }
+}
+
+/* Optimize for mobile screens */
+@media (max-width: 768px) {
+    body {
+        background-size: contain;
+        background-position: center;
+    }
+}
+
+/* Adjust for very small mobile devices */
+@media (max-width: 480px) {
+    body {
+        background-size: contain;
+    }
+}

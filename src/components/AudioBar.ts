@@ -23,8 +23,8 @@ export class AudioBar {
         this.PauseSong = this.PauseSong.bind(this);
 
         this.grandParent.className = 'audio-grandparent';
-        this.grandParent.style.left = this.position.x + 'px';
-        this.grandParent.style.top = this.position.y + 'px';
+        this.grandParent.style.left = this.position.x + 'vw';
+        this.grandParent.style.top = this.position.y + 'vh';
     }
 
     PlaySong() {

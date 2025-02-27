@@ -74,8 +74,8 @@ export class Timer {
             clearInterval(this.Itimer);
             this.Itimer = null;
         }
-        this.timer.innerText = '00:00';
         this.duration = this.startDuration;
+        this.formatTime();
     }
 
     alertSound(src: string) {

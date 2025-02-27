@@ -1,6 +1,6 @@
 import audioData from '../data/audio.json';
 import '../styles/audio.css';
-import { volumeBar, volumeBar } from './VolumeBar';
+import { volumeBar } from './VolumeBar';
 
 export class AudioPopup {
     parent: HTMLDivElement;
