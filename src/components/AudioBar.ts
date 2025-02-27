@@ -1,4 +1,5 @@
 import '../styles/audio.css';
+import { volumeBar } from './VolumeBar';
 
 export class AudioBar {
     music: HTMLAudioElement;
@@ -27,7 +28,9 @@ export class AudioBar {
     }
 
     PlaySong() {
+        this.music.volume = 0.2;
         this.music.loop = true;
+
         if (!this.music) {
             console.error('expected to have music');
             return;

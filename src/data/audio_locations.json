@@ -10,7 +10,7 @@
                     }
                 }
             ],
-            "audio_src": "/sounds/lofi-alarm.mp3"
+            "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/ocean.mp3"
         },
         {
             "title": "wind",
@@ -22,7 +22,7 @@
                     }
                 }
             ],
-            "audio_src": "/sounds/lofi-alarm.mp3"
+            "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/rain.mp3"
         }
     ],
     "cyberscape": [
@@ -36,7 +36,7 @@
                     }
                 }
             ],
-            "audio_src": ""
+            "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/rain.mp3"
         }
     ]
 }

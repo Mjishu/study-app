@@ -1,8 +1,11 @@
 import audioData from '../data/audio.json';
+import '../styles/audio.css';
+import { volumeBar, volumeBar } from './VolumeBar';
 
 export class AudioPopup {
     parent: HTMLDivElement;
     isShown: boolean;
+    soundButtons: HTMLButtonElement[] = [];
     constructor() {
         this.parent = document.createElement('div');
         this.isShown = false;
@@ -14,25 +17,31 @@ export class AudioPopup {
 
     start() {
         if (this.isShown) {
-            this.parent.innerHTML = '';
             this.isShown = false;
             this.parent.hidden = true;
             return;
+        } else {
+            if (this.soundButtons.length === 0) {
+                this._populateContent();
+            }
+            this.isShown = true;
+            this.parent.hidden = false;
         }
-        for (let i = 0; i < Object.keys(audioData).length; i++) {
-            this._domElement(Object.keys(audioData)[i], Object.values(audioData)[i]);
-        }
+    }
 
-        this._closeButton();
-        this.isShown = true;
-        this.parent.hidden = false;
+    _populateContent() {
+        Object.entries(audioData).forEach(([title, item]) => {
+            this._domElement(title, item);
+        });
+
+        this._closeButton;
     }
 
     _closeButton() {
         const closeButton = document.createElement('button');
+        closeButton.className = 'close-button';
         closeButton.innerText = 'close';
         closeButton.onclick = () => {
-            this.parent.innerHTML = '';
             this.isShown = false;
             this.parent.hidden = true;
         };
@@ -40,7 +49,6 @@ export class AudioPopup {
     }
 
     _domElement(title: string, item: Audio) {
-        console.log(title, item);
         const button = document.createElement('button');
         button.className = 'sound-button';
 
@@ -50,14 +58,32 @@ export class AudioPopup {
 
         const soundTitle = document.createElement('p');
         soundTitle.innerText = title;
+        soundTitle.className = 'sound-title hidden';
 
-        button.onclick = () => this._playSound(item.audio_src);
+        const song = new Audio(item.audio_src);
+        song.volume = 0.2;
+
+        const volume = new volumeBar({ audio: song }, this.parent, song.volume);
+        volume.Start();
+
+        button.onclick = () => this._playSound(song);
+        button.addEventListener('mouseover', () => this._handleHover(soundTitle, true));
+        button.addEventListener('mouseleave', () => this._handleHover(soundTitle, false));
         button.append(icon, soundTitle);
 
+        this.soundButtons.push(button);
         this.parent.append(button);
     }
 
-    _playSound(audio_src: string) {
-        console.log('playing sound ' + audio_src);
+    _playSound(song: HTMLAudioElement) {
+        if (song.paused) {
+            song.play();
+        } else {
+            song.pause();
+        }
+    }
+
+    _handleHover(title: HTMLParagraphElement, isHover: boolean) {
+        title.classList.toggle('hidden', !isHover);
     }
 }

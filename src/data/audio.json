@@ -1,27 +1,26 @@
 {
-    "fireplace": {
-        "audio_src": "",
-        "icon": ""
+    "Fireplace": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/fireplace.mp3",
+        "icon": "/icons/fire.svg"
     },
-    "wind": {
-        "audio_src": "",
-        "icon": ""
+    "Wind": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/wind.mp3",
+        "icon": "/icons/wind.svg"
     },
-    "rain": {
-        "audio_src": "",
-        "icon": ""
+    "Rain": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/rain.mp3",
+        "icon": "/icons/rain.svg"
     },
-    "talking": {
-        "audio_src": "",
-        "icon": ""
+    "Cafe Ambience": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/cafe_ambience.mp3",
+        "icon": "/icons/chatting.svg"
     },
-    "waterfall": {
-        "audio_src": "",
-        "icon": ""
+    "Ocean": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/ocean.mp3",
+        "icon": "/icons/waterfall.svg"
     },
-
-    "summer": {
-        "audio_src": "",
-        "icon": ""
+    "Nature": {
+        "audio_src": "https://study-app-mjishu.s3.us-east-1.amazonaws.com/nature.mp3",
+        "icon": "/icons/tree.svg"
     }
 }
