@@ -19,14 +19,13 @@ export class volumeBar {
     }
 
     Start() {
+        this.updateBarFromVolume();
         this.e.addEventListener('mousedown', (e: MouseEvent) => {
-            console.log('touched');
             this.drag = true;
             this.updateBar(e.clientX);
         });
         document.addEventListener('mousemove', (e: MouseEvent) => {
             if (this.drag) {
-                console.log('dragging');
                 this.updateBar(e.clientX);
             }
         });
@@ -37,24 +36,27 @@ export class volumeBar {
     }
 
     updateBar(x: number) {
-        let volume = this.e;
+        const container = this.e;
         let percentage;
 
-        if (this.volume) {
+        // Only use this.volume for initialization, not during drag
+        if (!this.drag && this.volume !== undefined) {
             percentage = this.volume * 100;
         } else {
-            let position = x - volume.offsetLeft;
-            percentage = (100 * position) / volume.clientWidth;
+            let position = x - container.getBoundingClientRect().left;
+            percentage = (100 * position) / container.clientWidth;
         }
 
-        if (percentage > 100) {
-            percentage = 100;
-        }
-        if (percentage < 0) {
-            percentage = 0;
-        }
-        this.eInner.style.width = percentage + '%';
+        // Clamp percentage between 0 and 100
+        percentage = Math.max(0, Math.min(100, percentage));
+
+        this.updateBarFromVolume();
         this.audio.volume = percentage / 100;
-        console.log(`new percentage is ${percentage}`);
+        this.volume = this.audio.volume; // Update stored volume
+    }
+
+    updateBarFromVolume() {
+        const percentage = this.volume * 100;
+        this.eInner.style.width = percentage + '%';
     }
 }

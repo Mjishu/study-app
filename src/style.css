@@ -178,14 +178,17 @@ body {
 }
 
 .volume-slider-con {
-    height: 10px;
-    width: 50%;
+    height: 12px;
+    width: 70%;
     position: relative;
-    background-color: #ddd;
+    background-color: #38383860;
+    border-radius: 10px;
+    /* transform: rotateX(180deg); */
 }
 .volume-slider {
     height: 100%;
     width: 100%;
     position: relative;
-    background-color: red;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
 }

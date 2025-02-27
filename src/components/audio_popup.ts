@@ -34,7 +34,7 @@ export class AudioPopup {
             this._domElement(title, item);
         });
 
-        this._closeButton;
+        this._closeButton();
     }
 
     _closeButton() {
@@ -49,6 +49,8 @@ export class AudioPopup {
     }
 
     _domElement(title: string, item: Audio) {
+        const div = document.createElement('div');
+        div.className = 'audio-holder';
         const button = document.createElement('button');
         button.className = 'sound-button';
 
@@ -61,10 +63,7 @@ export class AudioPopup {
         soundTitle.className = 'sound-title hidden';
 
         const song = new Audio(item.audio_src);
-        song.volume = 0.2;
-
-        const volume = new volumeBar({ audio: song }, this.parent, song.volume);
-        volume.Start();
+        song.volume = 0.5;
 
         button.onclick = () => this._playSound(song);
         button.addEventListener('mouseover', () => this._handleHover(soundTitle, true));
@@ -72,7 +71,12 @@ export class AudioPopup {
         button.append(icon, soundTitle);
 
         this.soundButtons.push(button);
-        this.parent.append(button);
+        div.append(button);
+
+        const volume = new volumeBar({ audio: song }, div, song.volume);
+        volume.Start();
+
+        this.parent.append(div);
     }
 
     _playSound(song: HTMLAudioElement) {
