@@ -51,7 +51,7 @@ export class Display {
         this.Timer.formatTime();
 
         // music setup
-        this._displayAudio();
+        // this._displayAudio();
     }
 
     listeners() {

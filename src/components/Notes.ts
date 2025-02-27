@@ -32,7 +32,7 @@ export class Notes {
         this.updateColor = this.updateColor.bind(this);
         this.Delete = this.Delete.bind(this);
 
-        this.noteContent = existingInfo ? existingInfo : { id: numberOfCards, content: '', color: this.colorOptions[0], x: 0, y: 0 };
+        this.noteContent = existingInfo ? existingInfo : { id: this._checkId(numberOfCards), content: '', color: this.colorOptions[0], x: 0, y: 0 };
         this.Drag = new Drag(this.parent, this.noteContent);
     }
 
@@ -79,6 +79,21 @@ export class Notes {
             this.colorHolder.innerHTML = '';
             this.optionsVisible = false;
         }
+    }
+
+    _checkId(numberOfCards: number): number {
+        let newId = numberOfCards;
+        const currentCards = this.local.getItem('notes');
+        const parsedCards: NotesContent[] = currentCards ? JSON.parse(currentCards) : [];
+        for (const card of parsedCards) {
+            // check if numberOfCards is less than the greatest ID (if newId < card.id: newId = card.id + 1)
+            if (newId < card.id) {
+                console.log('id was less than card increasing id');
+                newId = card.id + 1;
+            }
+        }
+
+        return newId;
     }
 
     _deleteButton() {
