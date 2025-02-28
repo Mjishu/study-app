@@ -28,13 +28,15 @@
     z-index: 7;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: #737677c0;
+    background: #737677b0;
+    border: 2px solid white;
     /* grid-template-rows: repeat(); */
     gap: 1rem;
     position: fixed;
     left: 40%;
     top: 10%;
     padding: 1rem;
+    z-index: 20;
     border-radius: 10px;
 }
 
@@ -90,4 +92,13 @@
     align-items: center;
     width: 100%;
     gap: 0.25rem;
+    position: relative;
+}
+
+.audio-playing-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 2rem;
+    height: 2rem;
 }

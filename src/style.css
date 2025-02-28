@@ -34,6 +34,27 @@ body {
     height: 100vh;
 }
 
+nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+nav button {
+    background-color: #6991ce60;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-size: 1.25rem;
+    height: 2rem;
+    width: 8rem;
+    transition: 100ms ease-in background-color;
+}
+
+nav button:hover {
+    background-color: #6991cec7;
+}
+
 #timer-parent {
     border: 1px solid var(--light-color);
     border-radius: 10px;
@@ -49,7 +70,7 @@ body {
     background: hsl(var(--black), 0.6);
     position: fixed;
     left: 50%;
-    top: 10%;
+    top: 15%;
     transform: translate(-50%, -50%);
 }
 
@@ -152,6 +173,7 @@ body {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    justify-content: center;
 }
 
 #background-select-parent button {
@@ -159,6 +181,11 @@ body {
     height: auto;
     background: none;
     border: none;
+    z-index: 15;
+}
+
+#background-select-parent button:hover {
+    filter: blur(1.5px);
 }
 
 #background-select-parent button img {

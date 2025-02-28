@@ -62,10 +62,17 @@ export class AudioPopup {
         soundTitle.innerText = title;
         soundTitle.className = 'sound-title hidden';
 
+        const isPlaying = document.createElement('img');
+        isPlaying.alt = 'playing';
+        isPlaying.src = '/icons/volume.svg';
+        isPlaying.className = 'audio-playing-icon';
+        isPlaying.hidden = true;
+        div.appendChild(isPlaying);
+
         const song = new Audio(item.audio_src);
         song.volume = 0.5;
 
-        button.onclick = () => this._playSound(song);
+        button.onclick = () => this._playSound(song, isPlaying);
         button.addEventListener('mouseover', () => this._handleHover(soundTitle, true));
         button.addEventListener('mouseleave', () => this._handleHover(soundTitle, false));
         button.append(icon, soundTitle);
@@ -79,11 +86,21 @@ export class AudioPopup {
         this.parent.append(div);
     }
 
-    _playSound(song: HTMLAudioElement) {
+    _showPlaying(item: HTMLElement, isPlaying: boolean) {
+        if (isPlaying) {
+            item.hidden = false;
+        } else {
+            item.hidden = true;
+        }
+    }
+
+    _playSound(song: HTMLAudioElement, isPlayingElement: HTMLElement) {
         if (song.paused) {
             song.play();
+            this._showPlaying(isPlayingElement, true);
         } else {
             song.pause();
+            this._showPlaying(isPlayingElement, false);
         }
     }
 
