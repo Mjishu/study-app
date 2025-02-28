@@ -1,8 +1,6 @@
 import { Timer } from './components/Timer';
 import { Notes } from './components/Notes';
 import { Local } from './helper/Local';
-import { AudioBar } from './components/AudioBar';
-import audioData from './data/audio_locations.json';
 import { Settings } from './helper/Settings';
 import { AudioPopup } from './components/audio_popup';
 
@@ -130,7 +128,7 @@ export class Display {
         for (const aspect of item.position) {
             const aspectRatio = Object.keys(aspect)[0];
             if (aspectRatio === ratio) {
-                return { exists: true, positions: { x: aspect[aspectRatio].x, y: aspect[aspectRatio].y } };
+                return { exists: true, positions: { x: aspect[aspectRatio][0].x, y: aspect[aspectRatio][0].y } };
             }
         }
         return { exists: false, positions: { x: 0, y: 0 } };

@@ -29,7 +29,7 @@ export class volumeBar {
                 this.updateBar(e.clientX);
             }
         });
-        document.addEventListener('mouseup', (e: MouseEvent) => {
+        document.addEventListener('mouseup', () => {
             console.log('letting go');
             this.drag = false;
         });
@@ -56,7 +56,9 @@ export class volumeBar {
     }
 
     updateBarFromVolume() {
-        const percentage = this.volume * 100;
-        this.eInner.style.width = percentage + '%';
+        if (this.volume) {
+            const percentage = this.volume * 100;
+            this.eInner.style.width = percentage + '%';
+        }
     }
 }

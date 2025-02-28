@@ -50,7 +50,7 @@ export class Drag {
         // console.log(this.localX, this.localY);
     }
 
-    mouseUp(e: MouseEvent) {
+    mouseUp() {
         document.removeEventListener('mousemove', this.mouseMove);
     }
 

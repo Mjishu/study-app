@@ -1,5 +1,4 @@
 import '../styles/audio.css';
-import { volumeBar } from './VolumeBar';
 
 export class AudioBar {
     music: HTMLAudioElement;
